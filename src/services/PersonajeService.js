@@ -80,7 +80,7 @@ class PersonajeService {
     let victimas = [...this._personajes];
     if (filtros.especie)
       victimas = victimas.filter((p) => p.especie == filtros.especie);
-    if (filtros.especie)
+    if (filtros.categoria)
       victimas = victimas.filter((p) => p.categoria == filtros.categoria);
     if (filtros.nombre)
       victimas = victimas.filter((p) => p.nombre == filtros.nombre);
@@ -90,7 +90,7 @@ class PersonajeService {
     });
     return victimas;
   }
-  registrarResultados(ganador, perdedor) {
+  registrarResultado(ganador, perdedor) {
     const win = this._personajes.find((p) => p.id == ganador);
     const lose = this._personajes.find((p) => p.id == perdedor);
     if (win) win.victorias++;
