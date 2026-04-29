@@ -34,9 +34,12 @@ class Personaje extends BasePersonaje {
   }
 
   //Override
-  recibirDanio(cantidad) {
-    const ataqueReal = Math.max(0, cantidad - this.defensa); //Si cantidad - defensa es negativo, se queda con 0
-    this.vida = Math.max(0, this.vida - ataqueReal); // Si el ataque le quita más de lo que queda de vida, se pone la vida a 0
+  recibirDanio(cantidad, ignoraDefensa = false) {
+    const danioReal = ignoraDefensa
+      ? cantidad
+      : Math.max(0, cantidad - this.defensa);
+    this.vida = Math.max(0, this.vida - danioReal); // Si el ataque le quita más de lo que queda de vida, se pone la vida a 0
+    return danioReal;
   }
 }
 
