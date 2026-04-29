@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 
-
 const RUTA = path.join(__dirname, '../../data/personajes.txt');
 
 const StorageService = () => {
@@ -11,7 +10,7 @@ const StorageService = () => {
     }
 
     const guardarPersonajes = (personajes, aniadir) => {
-        if (aniadir)  (fs.appendFileSync(RUTA, JSON.stringify(personajes) + '\n', 'utf-8'))
+        if (aniadir) fs.appendFileSync(RUTA, JSON.stringify(personajes) + '\n', 'utf-8')
         else {
             const contenido = personajes.map(p => JSON.stringify(p)).join('\n');
             fs.writeFileSync(RUTA, contenido + '\n', 'utf-8');
