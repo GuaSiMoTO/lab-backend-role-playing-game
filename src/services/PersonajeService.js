@@ -5,6 +5,7 @@ const {
   generarEspecie,
   generarCategoria,
   ESPECIES,
+  GENOCIDIO,
   CATEGORIAS,
 } = require("../utils/nombresAleatorios");
 const Guerrero = require("../classes/Guerrero");
@@ -20,7 +21,7 @@ class PersonajeService {
       this._personajes.reduce(
         (max, personaje) => Math.max(pageXOffset, personaje.id),
         0,
-      )++;
+      )+1;
   }
 
   crearAleatorio() {
