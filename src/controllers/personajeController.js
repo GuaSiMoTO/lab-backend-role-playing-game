@@ -30,4 +30,31 @@ const eliminar = (req, res, next) => {
   catch (err) { next(err) }
 }
 
-module.exports = { listar, obtenerUno, crearManual, crearAleatorio, actualizar, eliminar }
+const genocidio = (req, res, next)=> {
+  try {
+        // Extraes los filtros de la query string (?especie=Humano&categoria=Guerrero)
+        const { especie, categoria, nombre } = req.query;
+
+        // Llamas a la función pasando los filtros en un objeto
+        const eliminados = PersonajeService.GENOCIDIO({ especie, categoria, nombre });
+
+        // 4Si no se eliminó a nadie, AVISAR
+        if (eliminados.length === 0) {
+            return res.status(404).json({ 
+                mensaje: "No se encontraron personajes con esos filtros para eliminar." 
+            });
+        }
+
+        // Respondes con éxito y la lista de los que han muerto"
+        res.json({
+            mensaje: `Se han eliminado ${eliminados.length}`,
+            victimas: eliminados
+        });
+
+    } catch (error) {
+        res.status(500).json({ error: "Error al intentar GENOCIDIO"})
+    }
+};
+
+
+module.exports = { listar, obtenerUno, crearManual, crearAleatorio, actualizar, eliminar , genocidio};
