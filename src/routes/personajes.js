@@ -1,12 +1,14 @@
-const { Router } = require('express');
-const control = require('../controllers/personajeController');
-const router = Router();
+const { Router }   = require('express')
+const validar      = require('../middleware/validarCampos')
+const ctrl         = require('../controllers/personajeController')
 
-router.get('/', control.listar);
-router.get('/:id', control.obtenerPorId);
-router.post('/manual', control.crearManual);
-// router.post('/aleatorio', control.crearAleatorio) //dejarlo para mañana
-router.put('/:id', control.actualizar);
-router.delete('/:id', control.eliminar);
+const router = Router()
 
-module.exports = router;
+router.get('/',              ctrl.listar)
+router.get('/:id',           ctrl.obtenerUno)
+router.post('/manual',       validar(['nombre', 'especie', 'categoria']), ctrl.crearManual)
+router.post('/aleatorio',    ctrl.crearAleatorio)
+router.put('/:id',           validar(['nombre']), ctrl.actualizar)
+router.delete('/:id',        ctrl.eliminar)
+
+module.exports = router

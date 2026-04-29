@@ -1,21 +1,26 @@
-// const Combate = require('../classes/Combate')  // TODO: descomentar cuando tenga hecho la clase Combate
+const Combate  = require('../classes/Combate')
+const service  = require('../services/PersonajeService')
+const AppError = require('../utils/AppError')
 
-const simularCombate = (req, res) => {
-  const { id1, id2 } = req.body
+const simular = (req, res, next) => {
+  try {
+    const { id1, id2 } = req.body
+    if (id1 === id2) throw new AppError('ID es igual, mismo PERSONAJE', 400)
 
-  if (!id1 || !id2) {
-    return res.status(400).json({ error: 'Faltan los id1, id2' })
+    const p1 = service.obtenerPorId(Number(id1))
+    const p2 = service.obtenerPorId(Number(id2))
+
+    const resultado = Combate.simular(p1, p2)
+
+    // Actualizar victorias/derrotas
+    const idGanador  = resultado.ganador  === p1.nombre ? p1.id : p2.id
+    const idPerdedor = resultado.perdedor === p1.nombre ? p1.id : p2.id
+    service.registrarResultado(idGanador, idPerdedor)
+
+    res.json(resultado)
+  } catch (err) {
+    next(err)
   }
-
-  if (id1 === id2) {
-    return res.status(400).json({ error: 'Son el mismo personaje' })
-  }
-
-  // TODO: reemplazar por Combate.simular(p1, p2) cuando esté hecha la clase
-  const ganador = Math.random() < 0.5 ? id1 : id2
-  const perdedor = ganador === id1 ? id2 : id1
-
-  res.json({ ganador, perdedor })
 }
 
-module.exports = { simularCombate }
+module.exports = { simular }

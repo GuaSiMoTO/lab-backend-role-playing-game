@@ -1,12 +1,9 @@
-const { Router } = require('express');
-const control = require('../controllers/combateController');
-const router = Router();
+const { Router } = require('express')
+const validar    = require('../middleware/validarCampos')
+const ctrl       = require('../controllers/combateController')
 
-//POST   combates   → Simula un combate (body: { id1, id2 })
-router.post('/', control.simularCombate);
+const router = Router()
 
-//GET  combates/historial     → Lista combates guardados (bonus)
-//router.get('/historial', control.historial);
+router.post('/', validar(['id1', 'id2']), ctrl.simular)
 
-
-module.exports = router;
+module.exports = router
