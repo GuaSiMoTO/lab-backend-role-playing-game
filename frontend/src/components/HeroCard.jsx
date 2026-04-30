@@ -1,8 +1,11 @@
+import { getCharacterImage } from '../utils/characterImages';
+
 const SPECIES_ICON = { humano: '🧑', enano: '⛏', elfo: '🧝' };
 const CAT_LABEL = { guerrero: 'Gue', explorador: 'Exp', mago: 'Mag' };
 
 export default function HeroCard({ hero, isSelected1, isSelected2, onPickSlot1, onPickSlot2, onDelete }) {
   const selectedClass = isSelected1 ? 'sel-1' : isSelected2 ? 'sel-2' : '';
+  const characterImage = getCharacterImage(hero.categoria, hero.especie);
 
   return (
     <div className={`hero-scroll ${selectedClass}`} id={`card-${hero.id}`}>
@@ -19,6 +22,24 @@ export default function HeroCard({ hero, isSelected1, isSelected2, onPickSlot1, 
           </div>
           <div className={`wax-seal seal-${hero.categoria}`}>{CAT_LABEL[hero.categoria]}</div>
         </div>
+
+        {/* Imagen del personaje */}
+        {characterImage && (
+          <div style={{textAlign: 'center', margin: '0.8rem 0'}}>
+            <img 
+              src={characterImage} 
+              alt={`${hero.categoria} ${hero.especie}`}
+              style={{
+                width: '80px',
+                height: '80px',
+                objectFit: 'contain',
+                borderRadius: '6px',
+                border: '1px solid var(--parch-deep)',
+                boxShadow: '0 2px 8px rgba(28,16,8,0.1)'
+              }}
+            />
+          </div>
+        )}
         <table className="stats-table">
           <tbody>
             <tr><td>Puntos de vida</td><td>{hero.stats.vida}</td></tr>

@@ -2,10 +2,12 @@ require('dotenv').config()
 const express      = require('express')
 const logger       = require('./src/middleware/logger')
 const errorHandler = require('./src/middleware/errorHandler')
+const cors = require("cors");
 
 const app  = express()
 const PUERTO = Number(process.env.PORT) || 3000
 
+app.use(cors());
 app.use(express.json())
 //logger se pone al principio de todo
 app.use(logger)

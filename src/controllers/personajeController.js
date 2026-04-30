@@ -57,13 +57,13 @@ const genocidio = (req, res, next) => {
     const { especie, categoria, nombre } = req.query;
 
     // Llamas a la función pasando los filtros en un objeto
-    const eliminados = PersonajeService.GENOCIDIO({
+    const eliminados = service.genocidio({
       especie,
       categoria,
       nombre,
     });
 
-    // 4Si no se eliminó a nadie, AVISAR
+    //Si no se eliminó a nadie, AVISAR
     if (eliminados.length === 0) {
       return res.status(404).json({
         mensaje: "No se encontraron personajes con esos filtros para eliminar.",
