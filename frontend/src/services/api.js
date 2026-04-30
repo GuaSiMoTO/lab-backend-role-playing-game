@@ -12,13 +12,13 @@ export async function apiFetch(path, opts = {}) {
 
 export const heroService = {
   // Obtener héroes con filtros
-  getHeroes: async (especie = '', categoria = '') => {
-    const params = new URLSearchParams();
-    if (especie) params.append('especie', especie);
-    if (categoria) params.append('categoria', categoria);
-    const r = await fetch(`${API_URL}/personajes?${params}`);
-    return r.json();
-  },
+ getHeroes: (especie = '', categoria = '') => {
+  const params = new URLSearchParams();
+  if (especie) params.append('especie', especie);
+  if (categoria) params.append('categoria', categoria);
+
+  return apiFetch(`/personajes?${params}`);
+},
 
   // Inscribir (Manual o Aleatorio)
   inscribir: async (datos, esAleatorio = false) => {

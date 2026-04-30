@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { apiFetch } from '../services/api';
+import { getCharacterImage } from '../utils/characterImages';
 
 export default function InscriptionForm({ onHeroCreated }) {
   const [nombre, setNombre] = useState('');
@@ -7,6 +8,8 @@ export default function InscriptionForm({ onHeroCreated }) {
   const [categoria, setCategoria] = useState('guerrero');
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
+
+  const previewImage = getCharacterImage(categoria, especie);
 
   const showMsg = (text, type) => {
     setMessage(text);
@@ -58,6 +61,32 @@ export default function InscriptionForm({ onHeroCreated }) {
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
         />
+
+        {/* Vista previa del personaje */}
+        {previewImage && (
+          <div style={{textAlign: 'center', margin: '1.5rem 0'}}>
+            <img 
+              src={previewImage} 
+              alt={`${categoria} ${especie}`}
+              style={{
+                width: '120px',
+                height: '120px',
+                objectFit: 'contain',
+                borderRadius: '8px',
+                border: '2px solid var(--parch-deep)',
+                boxShadow: '0 4px 12px rgba(28,16,8,0.15)'
+              }}
+            />
+            <p style={{
+              fontSize: '0.75rem',
+              fontStyle: 'italic',
+              color: 'var(--ink-light)',
+              marginTop: '0.5rem'
+            }}>
+              {categoria.charAt(0).toUpperCase() + categoria.slice(1)} {especie.charAt(0).toUpperCase() + especie.slice(1)}
+            </p>
+          </div>
+        )}
 
         <div className="quill-row">
           <div>
