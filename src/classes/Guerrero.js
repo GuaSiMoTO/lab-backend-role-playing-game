@@ -1,7 +1,7 @@
 const Personaje = require("./Personaje");
 
 class Guerrero extends Personaje {
-  constructor(nombre, especie) {
+  constructor(nombre, especie, categoria) {
     super(nombre, especie, "guerrero");
     this.turno = 0;
   }

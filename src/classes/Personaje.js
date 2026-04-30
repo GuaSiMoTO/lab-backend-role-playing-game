@@ -13,15 +13,25 @@ const MODIFICADORES_CATEGORIA = {
 };
 
 class Personaje extends BasePersonaje {
-  constructor(nombre, especie, categoria) {
+  constructor({nombre, especie, categoria}) {
     super(nombre, especie, categoria);
     this.calcularStats();
   }
 
   // Override
   calcularStats() {
-    const bonusEspecie = MODIFICADORES_ESPECIE[this.especie];
-    const bonusCategoria = MODIFICADORES_CATEGORIA[this.categoria];
+    // Es vital pasar la especie a minúsculas por si acaso
+    const esp = this.especie?.toLowerCase();
+    const cat = this.categoria?.toLowerCase();
+
+    const bonusEspecie = MODIFICADORES_ESPECIE[esp];
+    const bonusCategoria = MODIFICADORES_CATEGORIA[cat];
+
+    if (!bonusEspecie || !bonusCategoria) {
+        throw new Error(`Especie (${esp}) o Categoría (${cat}) no encontrada en las tablas.`);
+    }
+    
+
     this.vida = 100 + bonusEspecie.vida + bonusCategoria.vida;
     this.ataque = 10 + bonusEspecie.ataque + bonusCategoria.ataque;
     this.defensa = 5 + bonusEspecie.defensa + bonusCategoria.defensa;
