@@ -5,7 +5,6 @@ const {
   generarEspecie,
   generarCategoria,
   ESPECIES,
-  GENOCIDIO,
   CATEGORIAS,
 } = require("../utils/nombresAleatorios");
 const Guerrero = require("../classes/Guerrero");
@@ -31,25 +30,40 @@ class PersonajeService {
     return this.crearManual({ especie, categoria, nombre });
   }
   crearManual({ nombre, especie, categoria }) {
-      if (!ESPECIES.includes(especie)) {
+    // Normalizamos a minúsculas para que coincida con tus constantes
+    const espNorm = especie?.toLowerCase();
+    const catNorm = categoria?.toLowerCase();
+
+    if (!ESPECIES.includes(espNorm)) {
         throw new AppError(`Especie "${especie}" inválida.`, 400);
-      }
+    }
 
-      if (!CATEGORIAS.includes(categoria))
+    if (!CATEGORIAS.includes(catNorm)) {
         throw new AppError(`Categoría "${categoria}" inválida.`, 400);
-      const ClaseReferenciada = CLASES[especie];
+    }
 
-      const instancia = new ClaseReferenciada({
+    const ClaseReferenciada = CLASES[catNorm];
+
+    if (!ClaseReferenciada) {
+        throw new AppError(`No existe una clase para la categoría: ${categoria}`, 400);
+    }
+
+    const instancia = new ClaseReferenciada({
         id: this._siguienteID++,
         nombre,
-        especie,
-        categoria,
-      });
-      const ficha = instancia.ficha;
-      this._personajes.push(ficha);
-      StorageService.guardarPersonajes(ficha, true);
-      return ficha;
-  }
+        especie: espNorm,
+        categoria: catNorm,
+    });
+
+    const ficha = instancia.ficha;
+    this._personajes.push(ficha);
+    
+    // IMPORTANTE: Pasamos 'ficha' para añadir, NO el array completo
+    StorageService.guardarPersonajes(ficha, true); 
+    
+    return ficha;
+}
+
   obtenerTodos(filtros = {}) {
     // O algunos, depende del filtro.
     let resultado = [...this._personajes];
