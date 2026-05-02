@@ -13,8 +13,8 @@ const MODIFICADORES_CATEGORIA = {
 };
 
 class Personaje extends BasePersonaje {
-  constructor({nombre, especie, categoria}) {
-    super(nombre, especie, categoria);
+  constructor({ id, nombre, especie, categoria, victorias, derrotas }) {
+    super({ id, nombre, especie, categoria, victorias, derrotas });
     this.calcularStats();
   }
 
@@ -50,6 +50,18 @@ class Personaje extends BasePersonaje {
       : Math.max(0, cantidad - this.defensa);
     this.vida = Math.max(0, this.vida - danioReal); // Si el ataque le quita más de lo que queda de vida, se pone la vida a 0
     return danioReal;
+  }
+
+  get ficha() {
+    return {
+      id:        this.id,
+      nombre:    this.nombre,
+      especie:   this.especie,
+      categoria: this.categoria,
+      stats:     [this.vida, this.ataque, this.defensa, this.iniciativa],
+      victorias: this.victorias,
+      derrotas:  this.derrotas
+    }
   }
 }
 

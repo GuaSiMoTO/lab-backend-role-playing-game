@@ -1,3 +1,4 @@
+const AppError = require("../utils/AppError");
 const fs = require("fs");
 const path = require("path");
 
@@ -8,10 +9,11 @@ const leerPersonajes = () => {
   const contenido = fs.readFileSync(RUTA, "utf-8").trim();
   if (!contenido) return [];
   // Convertimos cada línea de texto en un objeto real de JS
-  return contenido.split("\n").map(linea => JSON.parse(linea));
+  return contenido.split("\n").filter(linea => linea.trim() !== "" && linea.trim() !== "undefined").map(linea => JSON.parse(linea)); //Añadimos un filtro a la hora de que haya algún almacenado de personaje esté corrupto.
 };
 
 const guardarPersonajes = (data, aniadir) => {
+  if (!data || (!Array.isArray(data)) && data.length == 0 && !aniadir) throw new AppError('Formato inválidoo, por favor, introduzca correctamente la ficha.')
   if (aniadir) {
     // data es el nuevo personaje (un solo objeto)
     fs.appendFileSync(RUTA, JSON.stringify(data) + "\n", "utf-8");
