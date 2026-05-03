@@ -8,13 +8,13 @@ describe('Pruebas unitarias Personaje', () => {
             id: 1,
             nombre: 'Aragorn',
             especie: 'humano',
-            caregoria: 'guerrero'
+            categoria: 'guerrero'
         };
 
         const p = new Personaje(datos);
 
         expect(p.vida).toBe(130);
-        experct(p.ataque).toBe(25);
+        expect(p.ataque).toBe(25);
     });
 
     test('Deberia lanzar un error con especie o categoria', () => {
