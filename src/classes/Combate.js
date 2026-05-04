@@ -9,11 +9,11 @@ const Explorador = require("./Explorador");
 function crearPersonaje(ficha) {
   switch (ficha.categoria) {
     case "guerrero":
-      return new Guerrero(ficha.nombre, ficha.especie);
+      return new Guerrero(ficha);
     case "mago":
-      return new Mago(ficha.nombre, ficha.especie);
+      return new Mago(ficha);
     case "explorador":
-      return new Explorador(ficha.nombre, ficha.especie);
+      return new Explorador(ficha);
     default:
       throw new Error(`Categoría desconocida: ${ficha.categoria}`);
   }
@@ -38,7 +38,7 @@ class Combate {
       pA.iniciativa >= pB.iniciativa ? [pA, pB] : [pB, pA];
 
     log.push(
-      `:crossed_swords:  ${primero.nombre} (${primero.categoria}, iniciativa ${primero.iniciativa}) ataca primero`,
+      `:crossed_swords:  ${primero.nombre} (${primero.categoria}, iniciativa ${primero.iniciativa}) ataca primero`,
     );
 
     while (primero.vida > 0 && segundo.vida > 0) {
