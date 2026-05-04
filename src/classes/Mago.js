@@ -1,8 +1,9 @@
 const Personaje = require("./Personaje");
 
 class Mago extends Personaje {
-  constructor(nombre, especie) {
-    super(nombre, especie, "mago");
+  constructor({ id, nombre, especie, victorias, derrotas }) {
+    // 2. Pasamos el objeto completo a Personaje, forzando la categoría "mago"
+    super({ id, nombre, especie, categoria: "mago", victorias, derrotas });
     this.turno = 0;
   }
 
