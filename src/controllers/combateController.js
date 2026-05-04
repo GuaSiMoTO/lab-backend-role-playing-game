@@ -23,5 +23,15 @@ const simular = (req, res, next) => {
   }
 }
 
-const historial = (req, res, next) => {} //
-module.exports = { simular }
+// Bonus: historial
+const historial = (req, res, next) => {
+  try{
+    res.json(service.obtenerHistorial(Number(req.params.id)))
+  } catch(err) {
+    next(err);
+  }
+
+} //
+
+
+module.exports = { simular , historial}

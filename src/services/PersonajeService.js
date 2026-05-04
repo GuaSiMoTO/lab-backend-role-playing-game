@@ -20,7 +20,7 @@ class PersonajeService {
       this._personajes.reduce(
         (max, personaje) => Math.max(max, personaje.id),
         0,
-      )+1;
+      ) + 1;
     this._historialCombate = StorageService.leerCombates();
   }
 
@@ -36,40 +36,45 @@ class PersonajeService {
     const catNorm = categoria?.toLowerCase();
 
     if (!ESPECIES.includes(espNorm)) {
-        throw new AppError(`Especie "${especie}" inválida.`, 400);
+      throw new AppError(`Especie "${especie}" inválida.`, 400);
     }
 
     if (!CATEGORIAS.includes(catNorm)) {
-        throw new AppError(`Categoría "${categoria}" inválida.`, 400);
+      throw new AppError(`Categoría "${categoria}" inválida.`, 400);
     }
 
     const ClaseReferenciada = CLASES[catNorm];
 
     if (!ClaseReferenciada) {
-        throw new AppError(`No existe una clase para la categoría: ${categoria}`, 400);
+      throw new AppError(
+        `No existe una clase para la categoría: ${categoria}`,
+        400,
+      );
     }
 
     const instancia = new ClaseReferenciada({
-        id: this._siguienteID++,
-        nombre,
-        especie: espNorm,
-        categoria: catNorm,
+      id: this._siguienteID++,
+      nombre,
+      especie: espNorm,
+      categoria: catNorm,
     });
 
     const ficha = instancia.ficha;
     this._personajes.push(ficha);
-    
+
     // IMPORTANTE: Pasamos 'ficha' para añadir, NO el array completo
-    StorageService.guardarPersonajes(ficha, true); 
-    
+    StorageService.guardarPersonajes(ficha, true);
+
     return ficha;
-}
+  }
   obtenerHistorial(id = 0) {
     let resultado = [...this._historialCombate];
     if (id > 0) {
-      const nombre = obtenerPorId(id).nombre;
-      resultado = resultado.filter((p) => (p.ganador == nombre || p.perdedor == nombre));
-    } 
+      const nombre = this.obtenerPorId(id).nombre;
+      resultado = resultado.filter(
+        (p) => p.ganador == nombre || p.perdedor == nombre,
+      );
+    }
     return resultado;
   }
   obtenerTodos(filtros = {}) {
@@ -93,13 +98,13 @@ class PersonajeService {
   eliminar(Id) {
     // Mayúscula para diferenciarlo del id propio del objeto.
     const index = this._personajes.findIndex((p) => p.id == Id);
-      if (index === -1) throw new AppError("Personaje no encontrado.", 404);
-      const eliminado = this._personajes.splice(index, 1)[0];
-      StorageService.guardarPersonajes(this._personajes, false);
-      return eliminado;
+    if (index === -1) throw new AppError("Personaje no encontrado.", 404);
+    const eliminado = this._personajes.splice(index, 1)[0];
+    StorageService.guardarPersonajes(this._personajes, false);
+    return eliminado;
   }
   /// Futura implementación
-  // GENOCIDIO(filtros = {}) { 
+  // GENOCIDIO(filtros = {}) {
   //   let victimas = [...this._personajes];
   //   if (filtros.especie)
   //     victimas = victimas.filter((p) => p.especie == filtros.especie);
@@ -118,6 +123,7 @@ class PersonajeService {
     const lose = this._personajes.find((p) => p.id == perdedor);
     if (win) win.victorias++;
     if (lose) lose.derrotas++;
+    this._historialCombate.push(historial);
     StorageService.guardarCombates(historial);
     StorageService.guardarPersonajes(this._personajes, false);
   }
