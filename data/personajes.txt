@@ -1,3 +1,4 @@
-undefined
-undefined
-{"id":1,"nombre":"Grimr","especie":"enano","categoria":"explorador","stats":[130,25,20,15],"victorias":0,"derrotas":0}
+{"id":1,"nombre":"Grimr","especie":"enano","categoria":"explorador","stats":[130,25,20,15],"victorias":7,"derrotas":0}
+{"id":2,"nombre":"Eryn","especie":"elfo","categoria":"explorador","stats":[100,30,5,30],"victorias":0,"derrotas":2}
+{"id":3,"nombre":"Torben","especie":"humano","categoria":"guerrero","stats":[130,25,15,10],"victorias":1,"derrotas":4}
+{"id":5,"nombre":"Halvard","especie":"enano","categoria":"mago","stats":[110,40,10,5],"victorias":3,"derrotas":5}
