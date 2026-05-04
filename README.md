@@ -11,13 +11,46 @@ Este proyecto implementa el backend de un juego RPG completo, desarrollado colab
 ## Estructura del Proyecto
 
 ```
-src/
-├── routes/           # Definición de endpoints y rutas
-├── controllers/      # Lógica de negocio de los endpoints
-├── middleware/       # Middleware personalizado (validación, CORS, errores)
-├── services/         # Servicios de aplicación (persistencia, lógica compartida)
-├── models/           # Clases de dominio (Personaje, Combate, etc.)
-└── index.js          # Punto de entrada de la aplicación
+lab-backend-role-playing-game/
+├── src/
+│   ├── classes/                  # Clases de dominio (POO pura)
+│   │   ├── BasePersonaje.js      # Clase abstracta base
+│   │   ├── Personaje.js          # Clase base de personaje
+│   │   ├── Guerrero.js           # Subclase Guerrero
+│   │   ├── Mago.js               # Subclase Mago
+│   │   ├── Explorador.js         # Subclase Explorador
+│   │   └── Combate.js            # Motor de simulación de combate
+│   ├── services/                 # Servicios de aplicación
+│   │   ├── PersonajeService.js   # CRUD de personajes y lógica de negocio
+│   │   └── StorageService.js     # Persistencia en ficheros NDJSON
+│   ├── controllers/              # Controladores HTTP
+│   │   ├── personajeController.js
+│   │   └── combateController.js
+│   ├── routes/                   # Definición de rutas y endpoints
+│   │   ├── personajes.js
+│   │   └── combates.js
+│   ├── middleware/               # Middleware personalizado
+│   │   ├── logger.js             # Logging de peticiones
+│   │   ├── validarCampos.js      # Validación de campos obligatorios
+│   │   └── errorHandler.js       # Manejo centralizado de errores
+│   └── utils/                    # Utilidades
+│       ├── AppError.js           # Clase personalizada de errores
+│       └── nombresAleatorios.js   # Generadores de datos aleatorios
+├── data/                         # Almacenamiento de datos
+│   ├── personajes.txt            # Personajes en formato NDJSON
+│   └── combates.txt              # Historial de combates
+├── tests/                        # Suite de tests
+│   ├── unit/                     # Tests unitarios
+│   └── integration/              # Tests de integración
+├── frontend/                     # Aplicación React + Vite
+│   ├── src/
+│   │   ├── components/           # Componentes React
+│   │   ├── services/             # Servicio API del frontend
+│   │   └── utils/                # Utilidades del frontend
+│   └── package.json
+├── index.js                      # Punto de entrada de la aplicación
+├── .env                          # Variables de entorno
+└── package.json                  # Dependencias del proyecto
 ```
 
 ---
