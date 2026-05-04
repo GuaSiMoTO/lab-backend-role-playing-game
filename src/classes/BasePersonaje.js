@@ -1,11 +1,11 @@
 // Clase abstracta Base Personaje (bonus)
 
 class BasePersonaje {
-  constructor(nombre, especie, categoria) {
+  constructor({ id, nombre, especie, categoria, victorias = 0, derrotas = 0 }) {
     if (new.target === BasePersonaje) {
       throw new Error("BasePersonaje es una clase abstracta. Usa Personaje.");
     }
-    this.id = 0;
+    this.id = id;
     this.nombre = nombre;
     this.especie = especie;
     this.categoria = categoria;
@@ -13,8 +13,8 @@ class BasePersonaje {
     this.ataque = 0;
     this.defensa = 0;
     this.iniciativa = 0;
-    this.victorias = 0;
-    this.derrotas = 0;
+    this.victorias = victorias;
+    this.derrotas = derrotas;
   }
 
   // Método abstracto atacar: las subclase Personaje sobreescribirlo (override).

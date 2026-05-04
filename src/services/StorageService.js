@@ -24,4 +24,4 @@ const guardarPersonajes = (data, aniadir) => {
   }
 };
 
-module.exports = { leerPersonajes, guardarPersonajes };;
+module.exports = { leerPersonajes, guardarPersonajes };
