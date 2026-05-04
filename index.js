@@ -24,14 +24,14 @@ app.use((req, res) => {
 // errorHandler se pone al final
 app.use(errorHandler);
 
-app.listen(PUERTO, () => {
-  console.log(`EJERCICO BACKEND GRUPO 3 - RPG en http://localhost:${PUERTO}`);
-});
+//app.listen(PUERTO, () => {
+//  console.log(`EJERCICO BACKEND GRUPO 3 - RPG en http://localhost:${PUERTO}`);
+//});
 
 //Esto es para las pruebas de test
-/*if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== 'test') {
   app.listen(PUERTO, () => {
     console.log(`EJERCICO BACKEND GRUPO 3 - RPG en http://localhost:${PUERTO}`);
   });
 }
-module.exports = app;*/
+module.exports = app;
