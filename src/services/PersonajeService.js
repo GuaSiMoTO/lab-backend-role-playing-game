@@ -21,6 +21,7 @@ class PersonajeService {
         (max, personaje) => Math.max(max, personaje.id),
         0,
       )+1;
+    this._historialCombate = StorageService.leerCombates();
   }
 
   crearAleatorio() {
@@ -63,7 +64,14 @@ class PersonajeService {
     
     return ficha;
 }
-
+  obtenerHistorial(id = 0) {
+    let resultado = [...this._historialCombate];
+    if (id > 0) {
+      const nombre = obtenerPorId(id).nombre;
+      resultado = resultado.filter((p) => (p.ganador == nombre || p.perdedor == nombre));
+    } 
+    return resultado;
+  }
   obtenerTodos(filtros = {}) {
     // O algunos, depende del filtro.
     let resultado = [...this._personajes];
@@ -73,7 +81,7 @@ class PersonajeService {
       resultado = resultado.filter((p) => p.categoria == filtros.categoria);
     if (filtros.nombre)
       resultado = resultado.filter((p) => p.nombre == filtros.nombre);
-    if (!resultado) throw new AppError("Personajes no encontrados.");
+    if (!resultado) throw new AppError("Personajes no encontrados.", 404);
     return resultado;
   }
   obtenerPorId(Id) {
@@ -89,27 +97,28 @@ class PersonajeService {
       const eliminado = this._personajes.splice(index, 1)[0];
       StorageService.guardarPersonajes(this._personajes, false);
       return eliminado;
-    
   }
-  GENOCIDIO(filtros = {}) {
-    let victimas = [...this._personajes];
-    if (filtros.especie)
-      victimas = victimas.filter((p) => p.especie == filtros.especie);
-    if (filtros.categoria)
-      victimas = victimas.filter((p) => p.categoria == filtros.categoria);
-    if (filtros.nombre)
-      victimas = victimas.filter((p) => p.nombre == filtros.nombre);
+  /// Futura implementación
+  // GENOCIDIO(filtros = {}) { 
+  //   let victimas = [...this._personajes];
+  //   if (filtros.especie)
+  //     victimas = victimas.filter((p) => p.especie == filtros.especie);
+  //   if (filtros.categoria)
+  //     victimas = victimas.filter((p) => p.categoria == filtros.categoria);
+  //   if (filtros.nombre)
+  //     victimas = victimas.filter((p) => p.nombre == filtros.nombre);
 
-    victimas.forEach((victima) => {
-      this.eliminar(victima.id); //Esto debería funcionar.
-    });
-    return victimas;
-  }
-  registrarResultado(ganador, perdedor) {
+  //   victimas.forEach((victima) => {
+  //     this.eliminar(victima.id); //Esto debería funcionar.
+  //   });
+  //   return victimas;
+  // }
+  registrarResultado(ganador, perdedor, historial) {
     const win = this._personajes.find((p) => p.id == ganador);
     const lose = this._personajes.find((p) => p.id == perdedor);
     if (win) win.victorias++;
     if (lose) lose.derrotas++;
+    StorageService.guardarCombates(historial);
     StorageService.guardarPersonajes(this._personajes, false);
   }
   actulizarNombre(id, nuevoNombre) {

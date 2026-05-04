@@ -15,7 +15,7 @@ router.post("/aleatorio", control.crearAleatorio);
 router.put("/:id", validar(["nombre"]), control.actualizar);
 router.delete("/:id", control.eliminar);
 
-// Bonus creado por grupo 3
-router.delete("/genocidio", control.genocidio);
+// Bonus creado por grupo 3 || Futura implementación
+// router.delete("/genocidio", control.genocidio);
 
 module.exports = router;

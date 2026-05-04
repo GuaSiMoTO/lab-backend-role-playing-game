@@ -50,36 +50,36 @@ const eliminar = (req, res, next) => {
     next(err);
   }
 };
+// Bonus creado por grupo 3 || Futura implementación
+// const genocidio = (req, res, next) => {
+//   try {
+//     // Extraes los filtros de la query string (?especie=Humano&categoria=Guerrero)
+//     const { especie, categoria, nombre } = req.query;
 
-const genocidio = (req, res, next) => {
-  try {
-    // Extraes los filtros de la query string (?especie=Humano&categoria=Guerrero)
-    const { especie, categoria, nombre } = req.query;
+//     // Llamas a la función pasando los filtros en un objeto
+//     const eliminados = service.genocidio({
+//       especie,
+//       categoria,
+//       nombre,
+//     });
 
-    // Llamas a la función pasando los filtros en un objeto
-    const eliminados = service.genocidio({
-      especie,
-      categoria,
-      nombre,
-    });
+//     //Si no se eliminó a nadie, AVISAR
+//     if (eliminados.length === 0) {
+//       return res.status(404).json({
+//         mensaje: "No se encontraron personajes con esos filtros para eliminar.",
+//       });
+//     }
 
-    //Si no se eliminó a nadie, AVISAR
-    if (eliminados.length === 0) {
-      return res.status(404).json({
-        mensaje: "No se encontraron personajes con esos filtros para eliminar.",
-      });
-    }
-
-    // Respondes con éxito y la lista de los que han muerto"
-    res.json({
-      mensaje: `Se han eliminado ${eliminados.length}`,
-      victimas: eliminados,
-    });
-  } catch (error) {
-    // Esto enviará el error al middleware errorHandler (el que tiene el err.stack)
-    next(error);
-  }
-};
+//     // Respondes con éxito y la lista de los que han muerto"
+//     res.json({
+//       mensaje: `Se han eliminado ${eliminados.length}`,
+//       victimas: eliminados,
+//     });
+//   } catch (error) {
+//     // Esto enviará el error al middleware errorHandler (el que tiene el err.stack)
+//     next(error);
+//   }
+// };
 
 module.exports = {
   listar,
@@ -88,5 +88,5 @@ module.exports = {
   crearAleatorio,
   actualizar,
   eliminar,
-  genocidio,
+  //genocidio,
 };

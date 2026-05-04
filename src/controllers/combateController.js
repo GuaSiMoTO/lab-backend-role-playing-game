@@ -15,7 +15,7 @@ const simular = (req, res, next) => {
     // Actualizar victorias/derrotas
     const idGanador  = resultado.ganador  === p1.nombre ? p1.id : p2.id
     const idPerdedor = resultado.perdedor === p1.nombre ? p1.id : p2.id
-    service.registrarResultado(idGanador, idPerdedor)
+    service.registrarResultado(idGanador, idPerdedor, resultado)
 
     res.json(resultado)
   } catch (err) {
@@ -23,4 +23,5 @@ const simular = (req, res, next) => {
   }
 }
 
+const historial = (req, res, next) => {} //
 module.exports = { simular }
