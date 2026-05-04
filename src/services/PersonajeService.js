@@ -103,6 +103,7 @@ class PersonajeService {
     StorageService.guardarPersonajes(this._personajes, false);
     return eliminado;
   }
+  
   /// Futura implementación
   // GENOCIDIO(filtros = {}) {
   //   let victimas = [...this._personajes];
@@ -118,6 +119,7 @@ class PersonajeService {
   //   });
   //   return victimas;
   // }
+
   registrarResultado(ganador, perdedor, historial) {
     const win = this._personajes.find((p) => p.id == ganador);
     const lose = this._personajes.find((p) => p.id == perdedor);
