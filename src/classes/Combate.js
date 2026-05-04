@@ -38,7 +38,7 @@ class Combate {
       pA.iniciativa >= pB.iniciativa ? [pA, pB] : [pB, pA];
 
     log.push(
-      `:crossed_swords:  ${primero.nombre} (${primero.categoria}, iniciativa ${primero.iniciativa}) ataca primero`,
+      `⚔️  ${primero.nombre} (${primero.categoria}, iniciativa ${primero.iniciativa}) ataca primero`,
     );
 
     while (primero.vida > 0 && segundo.vida > 0) {
@@ -73,7 +73,7 @@ class Combate {
     const perdedor = primero.vida > 0 ? segundo : primero;
 
     log.push(
-      `:trophy: Ganador: ${ganador.nombre} (${ganador.categoria}) en ${ronda} ronda(s)`,
+      `🏆 Ganador: ${ganador.nombre} (${ganador.categoria}) en ${ronda} ronda(s)`,
     );
 
     return {
