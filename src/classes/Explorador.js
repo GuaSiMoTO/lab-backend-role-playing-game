@@ -1,8 +1,15 @@
 const Personaje = require("./Personaje");
 
 class Explorador extends Personaje {
-  constructor({ id, nombre, especie, victorias, derrotas }) {
-    super({id, nombre, especie, categoria: "explorador", victorias, derrotas});
+  constructor(ficha) {
+    super({
+      id: ficha.id, 
+      nombre: ficha.nombre, 
+      especie: ficha.especie, 
+      categoria: "explorador", 
+      victorias: ficha.victorias || 0, 
+      derrotas: ficha.derrotas || 0
+    });
     this.turno = 0;
   }
 
