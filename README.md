@@ -101,7 +101,7 @@ lab-backend-role-playing-game/
 
 ---
 
-### **Javier Barroso** - Capa de API (Rutas, Controladores, Middleware)
+### **Javier Barroso** - Capa de API (Rutas, Controladores, Middleware, Index)
 
 **Responsabilidades:**
 - Implementación de rutas HTTP
@@ -112,7 +112,9 @@ lab-backend-role-playing-game/
 ```
 src/routes/       # Definición de endpoints
 src/controllers/  # Lógica de respuesta a requests
-src/middleware/   # Validación, CORS, manejo de errores
+src/middleware/   # Validación, , manejo de errores
+index.js          #  arranca el servidor, registra los routers y los middlewares globales. CORS (implementado por Ithaisa)
+
 ```
 
 **Problemas Resueltos:**
