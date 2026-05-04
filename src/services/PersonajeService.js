@@ -18,7 +18,7 @@ class PersonajeService {
     this._personajes = StorageService.leerPersonajes();
     this._siguienteID =
       this._personajes.reduce(
-        (max, personaje) => Math.max(pageXOffset, personaje.id),
+        (max, personaje) => Math.max(max, personaje.id),
         0,
       )+1;
   }
@@ -79,13 +79,13 @@ class PersonajeService {
   obtenerPorId(Id) {
     // Esta función es redundante y se puede unir en "obtenerTodos"
     const personaje = this._personajes.find((p) => p.id == Id);
-    if (!personaje) throw new AppError("Personaje no encontrado.");
+    if (!personaje) throw new AppError("Personaje no encontrado.", 404);
     return personaje;
   }
   eliminar(Id) {
     // Mayúscula para diferenciarlo del id propio del objeto.
     const index = this._personajes.findIndex((p) => p.id == Id);
-      if (index <= -1) throw new AppError("Personaje no encontrado.");
+      if (index === -1) throw new AppError("Personaje no encontrado.", 404);
       const eliminado = this._personajes.splice(index, 1)[0];
       StorageService.guardarPersonajes(this._personajes, false);
       return eliminado;
